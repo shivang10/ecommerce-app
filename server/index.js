@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose')
 const User = require('./model/user')
 const bcrypt = require('bcryptjs')
+const cors = require('cors')
 
 const username = "manish";
 const password = "Hbqp7oalwABPyN5Z";
@@ -18,6 +19,7 @@ mongoose.connect(
     }
 );
 app.use(bodyParser.json());
+app.use(cors());
 
 app.post('/api/login',async (req,res)=>{
 
