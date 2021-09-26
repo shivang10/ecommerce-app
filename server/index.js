@@ -7,15 +7,13 @@ const bcrypt = require('bcryptjs')
 const cors = require('cors')
 const jwt = require('jsonwebtoken')
 
-const username = "manish";
-const password = "Hbqp7oalwABPyN5Z";
-const cluster = "cluster0.zk74s";
-const dbname = "Users";
+const dotenv = require('dotenv');
+dotenv.config();
 
 const JWT_SECRET = 'jnfkdfnblnbl#(18579130314@#$@$nblsnflnslvl(@#&%Y)!#$$!fakf#(*%)!%)(!dffsdfsd'
 
 mongoose.connect(
-    `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`,
+    `mongodb+srv://${process.env.MONGODBUSERNAME}:${process.env.MONGODBPASSWORD}@${process.env.MONGODBCLUSTER}.mongodb.net/${process.env.MONGODBDBNAME}?retryWrites=true&w=majority`,
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
