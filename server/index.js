@@ -5,11 +5,14 @@ const mongoose = require('mongoose')
 const User = require('./model/user')
 const bcrypt = require('bcryptjs')
 const cors = require('cors')
+const jwt = require('jsonwebtoken')
 
 const username = "manish";
 const password = "Hbqp7oalwABPyN5Z";
 const cluster = "cluster0.zk74s";
 const dbname = "Users";
+
+const JWT_SECRET = 'jnfkdfnblnbl#(18579130314@#$@$nblsnflnslvl(@#&%Y)!#$$!fakf#(*%)!%)(!dffsdfsd'
 
 mongoose.connect(
     `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`,
@@ -22,7 +25,18 @@ app.use(bodyParser.json());
 app.use(cors());
 
 app.post('/api/login',async (req,res)=>{
+    const {username, password} = req.body
 
+    const user = await User.findOne({username}).lean()
+    if(!user){
+        return res.json({status: 'error', error:'Invalid username or Password'})
+    }
+    if(await bcrypt.compare(password,user.password)) {
+        const token = jwt.sign({id: user._id, username: user.username}, JWT_SECRET)
+        return res.json({ststus: 'ok', data: token})
+    }
+
+    return res.json({status: 'error', error:'Invalid username or Password'})
 })
 
 app.post('/api/register', async (req,res) =>{
