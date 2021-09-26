@@ -24,31 +24,31 @@ mongoose.connect(
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/api/login',async (req,res)=>{
-    const {username, password} = req.body
+app.post('/login',async (req,res)=>{
+    const {email, password} = req.body
 
-    const user = await User.findOne({username}).lean()
+    const user = await User.findOne({email}).lean()
     if(!user){
-        return res.json({status: 'error', error:'Invalid username or Password'})
+        return res.json({status: 'error', error:'Invalid username'})
     }
     if(await bcrypt.compare(password,user.password)) {
         const token = jwt.sign({id: user._id, username: user.username}, JWT_SECRET)
-        return res.json({ststus: 'ok', data: token})
+        return res.json({status: 'ok', data: token})
     }
 
-    return res.json({status: 'error', error:'Invalid username or Password'})
+    return res.json({status: 'error', error:'Invalid Password'})
 })
 
-app.post('/api/register', async (req,res) =>{
+app.post('/register', async (req,res) =>{
     const{username,password: plainTextPassword,email,phoneNumber} = req.body
     if(!username || typeof username !== 'string'){
         return res.json({status:'error', error:'Invalid Username'})
     }
     if(!plainTextPassword || typeof plainTextPassword !== 'string'){
-        return res.json({status:'error', error:'Invalid Username'})
+        return res.json({status:'error', error:'Invalid password'})
     }
 
-    const password = await bcrypt.hash(plainTextPassword,10)
+    const password = await bcrypt.hash(plainTextPassword,10);
     try {
         const response = await User.create({
             username,
@@ -61,7 +61,6 @@ app.post('/api/register', async (req,res) =>{
 
     }catch (error){
         if(error.code === 11000) {
-            console.log(JSON.stringify(error))
             return res.json({status: error, error: 'Duplicate Key'})
         }else{
             return  res.json({status:error})
