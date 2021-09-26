@@ -1,10 +1,14 @@
 import React from "react";
 
-const App: React.FC = () =>{
+import {BrowserRouter as Router} from "react-router-dom";
+
+import Routes from "./routes/routes";
+
+const App: React.FC = () => {
     return (
-        <div className="App">
-            Client Side
-        </div>
+        <Router>
+            <Routes />
+        </Router>
     );
 };
 
