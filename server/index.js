@@ -22,6 +22,8 @@ app.use('/register', registerRouter);
 const loginRouter = require('./routes/login');
 app.use('/login', loginRouter);
 
+const updateUserRouter = require('./routes/updateUserDetails');
+app.use('/update-my-profile', updateUserRouter);
 
 app.listen(5000, () => {
     console.log("server is running on 5000.")
