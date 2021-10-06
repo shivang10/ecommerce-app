@@ -25,6 +25,9 @@ app.use('/login', loginRouter);
 const updateUserRouter = require('./routes/updateUserDetails');
 app.use('/update-my-profile', updateUserRouter);
 
+const userOrderRouter = require('./routes/userOrder');
+app.use('/new-order', userOrderRouter);
+
 app.listen(5000, () => {
     console.log("server is running on 5000.")
 });
