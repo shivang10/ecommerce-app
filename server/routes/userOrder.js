@@ -22,7 +22,14 @@ router.route('/').post(async (req, res) => {
 
                 response = await User.findOneAndUpdate(
                     {_id: userId},
-                    {$push: {'orders': itemsOrdered}},
+                    {
+                        $push: {
+                            'orders': {
+                                $each: [itemsOrdered],
+                                $position: 0
+                            }
+                        }
+                    },
                     {new: true, upsert: true},
                 )
                 return res.status(200).send("Order is successfully placed", response);
