@@ -1,4 +1,4 @@
-const UserAddress = require('../models/userAddress');
+const UserAddress = require("../models/userAddress");
 
 const getUserAddress = (data) => {
     const {
@@ -7,9 +7,14 @@ const getUserAddress = (data) => {
     } = data;
 
     return new UserAddress({
-        houseNumber, locality, city, state,
-        pinCode, phoneNumber, anyDirection
+        houseNumber,
+        locality,
+        city,
+        state,
+        pinCode,
+        phoneNumber,
+        anyDirection
     });
-}
+};
 
 module.exports = getUserAddress;

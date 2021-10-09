@@ -1,13 +1,13 @@
-const router = require('express').Router();
-const User = require('../models/user');
+const router = require("express").Router();
+const User = require("../models/user");
 
-router.route('/').get((req, res) => {
-    const {userId} = req.body;
+router.route("/").get((req, res) => {
+    const { userId } = req.body;
 
-     User.findById(
-        {_id: userId},
-        'orders',
-         {},
+    User.findById(
+        { _id: userId },
+        "orders",
+        {},
         (err, result) => {
             if (err) {
                 res.status(400).send("Error occurred");

@@ -1,7 +1,7 @@
-const ItemOrder = require('../models/itemOrder');
+const ItemOrder = require("../models/itemOrder");
 
 const getSingleOrderItem = (item) => {
-    const {name, price, quantity, itemLink, itemDiscount} = item;
+    const { name, price, quantity, itemLink, itemDiscount } = item;
 
     const totalPrice = price * quantity;
 
@@ -11,8 +11,8 @@ const getSingleOrderItem = (item) => {
         quantity,
         totalPrice,
         itemLink,
-        itemDiscount,
+        itemDiscount
     });
-}
+};
 
 module.exports = getSingleOrderItem;

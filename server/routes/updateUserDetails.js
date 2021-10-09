@@ -1,15 +1,15 @@
-const router = require('express').Router();
-const User = require('../models/user');
+const router = require("express").Router();
+const User = require("../models/user");
 
-router.route('/:userId').put(async (req, res) => {
+router.route("/:userId").put(async (req, res) => {
     const dataToBeUpdated = req.body;
-    const {userId} = req.params;
+    const { userId } = req.params;
 
-    User.findOneAndReplace({_id: userId}, dataToBeUpdated, (err, result) => {
+    User.findOneAndReplace({ _id: userId }, dataToBeUpdated, (err, result) => {
         if (err) {
-            res.send(err);
+            res.status(200).send(err);
         } else {
-            res.send(result)
+            res.status(400).send(result);
         }
     });
 });

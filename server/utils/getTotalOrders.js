@@ -4,7 +4,7 @@ const getTotalAmount = require("./getTotalAmount");
 const IndividualOrder = require("../models/individualOrder");
 
 const getTotalOrder = (orderedItems) => {
-    const {items, address, modeOfPayment, discount} = orderedItems;
+    const { items, address, modeOfPayment, discount } = orderedItems;
 
     const itemsOrdered = items.map(item => getSingleOrderItem(item));
     const orderDate = new Date();
@@ -19,8 +19,7 @@ const getTotalOrder = (orderedItems) => {
         finalAmount,
         address,
         itemsOrdered
-    })
-
-}
+    });
+};
 
 module.exports = getTotalOrder;
