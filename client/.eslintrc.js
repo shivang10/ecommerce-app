@@ -32,7 +32,7 @@ module.exports = {
         "semi": ["error", "always"],
         "quotes": ["error", "double"],
         "indent": ["error", 4],
-        "max-len": ["error", {"code": 180}],
+        "max-len": ["error", {"code": 240}],
         "require-jsdoc": 0,
         "react/prop-types": 0,
         "react/display-name": "off",
