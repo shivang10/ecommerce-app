@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Seller = require("../models/seller");
 const bcrypt = require("bcryptjs");
+const saltRounds = 10;
 
 router.route("/").post(async (req, res) => {
     const {
@@ -42,7 +43,7 @@ router.route("/").post(async (req, res) => {
         });
     }
 
-    const password = await bcrypt.hash(plainTextPassword, 10);
+    const password = await bcrypt.hash(plainTextPassword, saltRounds);
     try {
         const response = await Seller.create({
             sellerUsername,
