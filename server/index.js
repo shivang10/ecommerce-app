@@ -31,6 +31,9 @@ app.use('/new-order', userOrderRouter);
 const userPreviousOrders = require('./routes/previousOrders');
 app.use('/my-orders', userPreviousOrders);
 
+const addNewAddress = require('./routes/addUserAddress');
+app.use('/add-address', addNewAddress);
+
 app.listen(5000, () => {
     console.log("server is running on 5000.")
 });
