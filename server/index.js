@@ -34,6 +34,12 @@ app.use("/my-orders", userPreviousOrders);
 const addNewAddress = require("./routes/addUserAddress");
 app.use("/add-address", addNewAddress);
 
+const sellerRegistration = require("./routes/sellerRegistration");
+app.use("/seller-registration", sellerRegistration);
+
+const sellerLogin = require("./routes/sellerLogin");
+app.use("/seller-login", sellerLogin);
+
 app.listen(5000, () => {
     console.log("server is running on 5000.");
 });
