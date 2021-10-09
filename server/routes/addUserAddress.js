@@ -6,12 +6,19 @@ router.route("/").post((req, res) => {
     const { userId } = req.body;
 
     if (!userId) {
-        return res.json({ status: 400, error: "Invalid data" });
+        return res.status(400).send({
+            message: "No user is there",
+            status: 400
+        });
     }
 
     User.findById({ _id: userId }, async (err) => {
         if (err) {
-            return res.status(400).send("user does not exist");
+            return res.status(400).send({
+                message: "User does not exist",
+                status: 400,
+                response: err
+            });
         } else {
             try {
                 const addressAdded = getUserAddress(req.body);
@@ -27,9 +34,17 @@ router.route("/").post((req, res) => {
                     },
                     { new: true, upsert: true }
                 );
-                return res.status(200).send("Address is added successfully", response);
+                return res.status(200).send({
+                    message: "Address is added successfully",
+                    response: response,
+                    status: 200
+                });
             } catch (error) {
-                return res.status(400).send("Sorry, cannot add the address");
+                return res.status(400).send({
+                    message: "Sorry, cannot add the address",
+                    status: 400,
+                    response: error
+                });
             }
         }
     });

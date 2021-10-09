@@ -8,12 +8,19 @@ router.route("/").post(async (req, res) => {
     const { userId, username, email, phoneNumber } = req.body;
 
     if (!userId || !username || !email || !phoneNumber) {
-        return res.json({ status: "error", error: "Empty fields" });
+        return res.status(400).send({
+            message: "Please fill all the required fields.",
+            status: 400
+        });
     }
 
     User.findById({ _id: userId }, async (err) => {
         if (err) {
-            return res.status(400).send("user does not exist");
+            return res.status(400).send({
+                message: "Wrong username or password",
+                status: 400,
+                response: err
+            });
         } else {
             try {
                 const itemsOrdered = getTotalOrder(individualOrderData);
@@ -29,9 +36,17 @@ router.route("/").post(async (req, res) => {
                     },
                     { new: true, upsert: true }
                 );
-                return res.status(200).send("Order is successfully placed", response);
+                return res.status(200).send({
+                    message: "Your order is successfully placed.",
+                    status: 200,
+                    response: response
+                });
             } catch (error) {
-                return res.status(400).send("Sorry, unable to place your order");
+                return res.status(400).send({
+                    message: "Sorry, unable to place your order",
+                    status: 400,
+                    response: error
+                });
             }
         }
     });

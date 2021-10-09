@@ -10,15 +10,25 @@ router.post("/", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }).lean();
-    if (!user) {
-        return res.json({ status: "error", error: "Invalid username" });
+    if (!user || !password) {
+        return res.status(400).send({
+            message: "Wrong username or password",
+            status: 400
+        });
     }
     if (await bcrypt.compare(password, user.password)) {
         const token = jwt.sign({ id: user._id, username: user.username }, JWT_SECRET);
-        return res.json({ status: "ok", data: token });
+        return res.status(200).send({
+            message: "Successfully logged in",
+            data: token,
+            status: 200
+        });
     }
 
-    return res.json({ status: "error", error: "Invalid Password" });
+    return res.status(400).send({
+        message: "Wrong username or password",
+        status: 400
+    });
 });
 
 module.exports = router;
