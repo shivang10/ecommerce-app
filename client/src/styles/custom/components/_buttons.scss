@@ -1,0 +1,74 @@
+@mixin btn-color-theme($color-text, $color-bg, $color-border, $border-size) {
+  color: $color-text;
+  background-color: $color-bg;
+  border: $border-size solid $color-border;
+}
+
+.btn {
+  &,
+  &:link,
+  &:visited {
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+
+    padding: 4px 10px;
+
+    border-radius: 1px;
+
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+
+.btn-small {
+  &,
+  &:link,
+  &:visited {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+
+    padding: 4px 10px;
+
+    border-radius: 1px;
+
+    cursor: pointer;
+    user-select: none;
+  }
+}
+
+
+%btn-link-properties {
+  margin: 2px 0;
+
+  display: flex;
+  align-items: center;
+
+  span {
+    white-space: nowrap;
+  }
+
+  &:hover {
+    color: $color-primary-1;
+    background-color: $color-white;
+  }
+
+}
+
+
+.btn-link{
+  &__navBar{
+    @extend .btn;
+    @include btn-color-theme($color-white,$color-primary-1, transparent, 0);
+    @extend %btn-link-properties;
+  }
+
+
+  &__form{
+    @extend .btn-small;
+    @include btn-color-theme($color-white,$color-primary-1, $color-white, 2px);
+    @extend %btn-link-properties;
+  }
+}

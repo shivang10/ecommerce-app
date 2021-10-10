@@ -1,12 +1,23 @@
 import React, {useState} from "react";
 
-import {Visibility, VisibilityOff} from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
-import {Avatar, Button, Grid, IconButton, InputAdornment, OutlinedInput, Paper, TextField} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import {Link} from "react-router-dom";
 import {Redirect, useHistory} from "react-router-dom";
 
 import {UserSignupDetailsInterface} from "./authInterface";
 import {signupRequest, isUserLogged} from "./authServices";
+
+
+const theme = createTheme();
 
 const Signup: React.FC = () => {
 
@@ -19,14 +30,16 @@ const Signup: React.FC = () => {
         password: "",
     });
 
-    const [value, setValue] = useState({
-        showPassword: false
-    });
+    const [registerSuccessful, updateRegisterSuccessful] = useState(false);
 
     const handleSubmit = async () => {
         const res = await signupRequest(userDetails);
+        console.log(userDetails);
         if (res.status === 200) {
-            history.push("/login");
+            updateRegisterSuccessful(true);
+            setTimeout(() => {
+                history.push("/login");
+            }, 1200);
         }
     };
 
@@ -41,73 +54,102 @@ const Signup: React.FC = () => {
         return <Redirect to="/"/>;
     }
 
-    const paperStyle = {padding: 20, height: "70vh", width: 280, margin: "20px auto"};
-
-    const avatarStyle = {backgroundColor: "blue", height: "70px", width: "70px"};
-
-    const handleClickShowPassword = () => {
-        setValue({
-            ...value,
-            showPassword: !value.showPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
-
     return (
         <div>
-            <Grid>
-                <Paper elevation={10} style={paperStyle}>
-                    <Grid>
-                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                            <Avatar style={avatarStyle}><PersonIcon/></Avatar>
-                        </div>
-                        <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-                            <h2 style={{fontFamily: "sans-serif"}}>Sign Up</h2>
-                        </div>
-                    </Grid>
-                    <Grid marginBottom={1}>
-                        <h3 style={{fontFamily: "sans-serif"}}>Username:</h3>
-                        <TextField name="username" variant="outlined" fullWidth={true} value={userDetails.username}
-                            onChange={handleChange} type="text"/>
-
-                        <h3 style={{fontFamily: "sans-serif"}}>Email:</h3>
-                        <TextField name="email" variant="outlined" fullWidth={true} value={userDetails.email}
-                            onChange={handleChange} type="text"/>
-
-                        <h3 style={{fontFamily: "sans-serif"}}>Phone Number:</h3>
-                        <TextField name="phoneNumber" variant="outlined" fullWidth={true}
-                            value={userDetails.phoneNumber} onChange={handleChange} type="number"/>
-                    </Grid>
-                    <Grid marginBottom={1}>
-                        <h3 style={{fontFamily: "sans-serif"}}>Password:</h3>
-                        <OutlinedInput
-                            name="password"
-                            type={value.showPassword ? "text" : "password"}
-                            value={userDetails.password}
-                            onChange={handleChange}
-                            fullWidth={true}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                        edge="end"
-                                    >
-                                        {value.showPassword ? <VisibilityOff/> : <Visibility/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </Grid>
-                    <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "20px"}}>
-                        <Button onClick={handleSubmit} variant="outlined" size="large">Sign Up</Button>
-                    </div>
-                </Paper>
-            </Grid>
+            <ThemeProvider theme={theme}>
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                        <Box sx={{ mt: 3 }}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12} sm={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="username"
+                                        label="Username"
+                                        name="username"
+                                        autoComplete="username"
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        autoComplete="email"
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
+                                        autoComplete="new-password"
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        name="phoneNumber"
+                                        label="Phone Number"
+                                        type="number"
+                                        id="phoneNumber"
+                                        autoComplete="phoneNumber"
+                                        onChange={handleChange}
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                                onClick={handleSubmit}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container justifyContent="flex-end">
+                                <Grid item>
+                                    <Link to="/login" className="btn-link__form">
+                                       Already a user? Login
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                            {registerSuccessful && <div style={{
+                                fontFamily: "sans-serif",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginTop: "20px",
+                                color: "green"
+                            }}> Logged in successfully </div>}
+                        </Box>
+                    </Box>
+                </Container>
+            </ThemeProvider>
         </div>
     );
 };

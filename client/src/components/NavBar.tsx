@@ -74,8 +74,8 @@ const NavBar: React.FC = () => {
                 </>
                 :
                 <>
-                    <MenuItem onClick={handleMenuClose}><Link to="/login">Login</Link></MenuItem>
-                    <MenuItem onClick={handleMenuClose}><Link to="/register">SignUP</Link></MenuItem>
+                    <MenuItem onClick={handleMenuClose}><Link className="btn-link__navBar" to="/login">Login</Link></MenuItem>
+                    <MenuItem onClick={handleMenuClose}><Link className="btn-link__navBar" to="/register">Register</Link></MenuItem>
                 </>
             }
         </Menu>
@@ -149,7 +149,7 @@ const NavBar: React.FC = () => {
                             component="div"
                             sx={{display: {xs: "none", sm: "block"}}}
                         >
-                            E-Commerce
+                            ShoppingTime
                         </Typography>
                         <Search>
                             <SearchIconWrapper>
@@ -167,9 +167,12 @@ const NavBar: React.FC = () => {
                             </>
                             :
                             <>
-                                Hello, Login/Signup
+                                <Link className="btn-link__navBar" to="/login">Login</Link>
+                                <Link className="btn-link__navBar" to="/register">Register</Link>
                             </>
                         }
+
+                        {isUserLogged &&
                         <Box sx={{display: {xs: "none", md: "flex"}}}>
                             <IconButton
                                 size="large"
@@ -191,7 +194,9 @@ const NavBar: React.FC = () => {
                             >
                                 <AccountCircle/>
                             </IconButton>
+
                         </Box>
+                        }
                         <Box sx={{display: {xs: "flex", md: "none"}}}>
                             <IconButton
                                 size="large"
