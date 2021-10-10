@@ -7,7 +7,7 @@ import Routes from "./routes/routes";
 const App: React.FC = () => {
     return (
         <Router>
-            <Routes />
+            <Routes/>
         </Router>
     );
 };

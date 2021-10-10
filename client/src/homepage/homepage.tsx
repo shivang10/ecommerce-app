@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 
 const Homepage: React.FC = () => {
 
-    return(
+    return (
         <div>
             <NavBar/>
         </div>
