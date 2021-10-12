@@ -10,13 +10,13 @@ router.route("/").get((req, res) => {
         {},
         (err, result) => {
             if (err) {
-                res.status(400).send({
+                return res.status(400).send({
                     message: "Sorry, unable to fetch your orders",
                     status: 400,
                     response: err
                 });
             } else {
-                res.status(200).send({
+                return res.status(200).send({
                     message: "Your orders are as follows",
                     status: 200,
                     response: result

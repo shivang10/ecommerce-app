@@ -5,32 +5,7 @@ const saltRounds = 10;
 
 router.route("/").post(async (req, res) => {
     const { username, password: plainTextPassword, email, phoneNumber } = req.body;
-    if (!username || typeof username !== "string") {
-        return res.status(400).send({
-            message: "Username is either empty or contains only number.",
-            status: 400
-        });
-    }
-    if (!plainTextPassword || typeof plainTextPassword !== "string") {
-        return res.status(400).send({
-            message: "Password is not of valid format.",
-            status: 400
-        });
-    }
-
-    if (!email || typeof email !== "string") {
-        return res.status(400).send({
-            message: "Email is either empty or not in the correct format.",
-            status: 400
-        });
-    }
-    if (!phoneNumber || typeof phoneNumber !== "number") {
-        return res.status(400).send({
-            message: "Phone number is not valid.",
-            status: 400
-        });
-    }
-
+    console.log(phoneNumber);
     const password = await bcrypt.hash(plainTextPassword, saltRounds);
     try {
         const response = await User.create({

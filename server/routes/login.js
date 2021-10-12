@@ -20,13 +20,13 @@ router.post("/", async (req, res) => {
                 status: 200
             });
         } else {
-            res.status(400).send({
+            return res.status(400).send({
                 message: "Wrong username or password. Try Again",
                 status: 400
             });
         }
     } catch (err) {
-        res.status(400).send({
+        return res.status(400).send({
             message: "Wrong username or password. Try Again",
             status: 400
         });

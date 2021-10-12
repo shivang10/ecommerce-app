@@ -11,13 +11,13 @@ router.route("/:userId").put(async (req, res) => {
         { upsert: true, new: true },
         (err, result) => {
             if (err) {
-                res.status(400).send({
+                return res.status(400).send({
                     message: "Unable to update your details",
                     status: 400,
                     response: err
                 });
             } else {
-                res.status(200).send({
+                return res.status(200).send({
                     message: "Your details are successfully updated",
                     status: 200,
                     response: result
