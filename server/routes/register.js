@@ -5,7 +5,6 @@ const saltRounds = 10;
 
 router.route("/").post(async (req, res) => {
     const { username, password: plainTextPassword, email, phoneNumber } = req.body;
-    console.log(phoneNumber);
     const password = await bcrypt.hash(plainTextPassword, saltRounds);
     try {
         const response = await User.create({

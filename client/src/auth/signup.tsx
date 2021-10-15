@@ -3,18 +3,19 @@ import React, {useState} from "react";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
+import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
-import {Link} from "react-router-dom";
-import {Redirect, useHistory} from "react-router-dom";
+import axios from "axios";
+import {SubmitHandler, useForm} from "react-hook-form";
+import {Link, Redirect, useHistory} from "react-router-dom";
 
+import MessageBar from "../components/MessageBar/MessageBar";
 import {UserSignupDetailsInterface} from "./authInterface";
-import {signupRequest, isUserLogged} from "./authServices";
+import {signupServerLink} from "./authLink";
+import {axiosPostMethod, isUserLogged} from "./authServices";
 
 
 const theme = createTheme();
@@ -23,31 +24,51 @@ const Signup: React.FC = () => {
 
     const history = useHistory();
 
-    const [userDetails, updateUserDetails] = useState<UserSignupDetailsInterface>({
-        username: "",
-        email: "",
-        phoneNumber: undefined,
-        password: "",
+    const {register, handleSubmit} = useForm<UserSignupDetailsInterface>();
+
+    const [registerSuccessful, updateRegisterSuccessful] = useState({
+        message: "",
+        response: "",
     });
 
-    const [registerSuccessful, updateRegisterSuccessful] = useState(false);
-
-    const handleSubmit = async () => {
-        const res = await signupRequest(userDetails);
-        console.log(userDetails);
-        if (res.status === 200) {
-            updateRegisterSuccessful(true);
-            setTimeout(() => {
-                history.push("/login");
-            }, 1200);
-        }
-    };
-
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        updateUserDetails({
-            ...userDetails,
-            [event.target.name]: event.target.value
+    const onSubmit: SubmitHandler<UserSignupDetailsInterface> = async (data) => {
+        updateRegisterSuccessful({
+            message: "Submitting your details",
+            response: "loading"
         });
+
+        axios({
+            "url": signupServerLink,
+            "method": axiosPostMethod,
+            "data": data
+        })
+            .then((res) => {
+                updateRegisterSuccessful({
+                    message: "Your account has been successfully created",
+                    response: "success"
+                });
+                setTimeout(() => {
+                    updateRegisterSuccessful({
+                        message: "",
+                        response: ""
+                    });
+                    history.push("/login");
+                }, 3000);
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log(err.response);
+                updateRegisterSuccessful({
+                    message: "Some error came up. Please try again.",
+                    response: "error"
+                });
+                setTimeout(() => {
+                    updateRegisterSuccessful({
+                        message: "",
+                        response: ""
+                    });
+                }, 3000);
+            });
     };
 
     if (isUserLogged) {
@@ -58,7 +79,7 @@ const Signup: React.FC = () => {
         <div>
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
-                    <CssBaseline />
+                    <CssBaseline/>
                     <Box
                         sx={{
                             marginTop: 8,
@@ -67,85 +88,35 @@ const Signup: React.FC = () => {
                             alignItems: "center",
                         }}
                     >
-                        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-                            <LockOutlinedIcon />
+                        <Avatar sx={{m: 1, bgcolor: "secondary.main"}}>
+                            <LockOutlinedIcon/>
                         </Avatar>
                         <Typography component="h1" variant="h5">
                             Sign up
                         </Typography>
-                        <Box sx={{ mt: 3 }}>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} sm={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="username"
-                                        label="Username"
-                                        name="username"
-                                        autoComplete="username"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        label="Email Address"
-                                        name="email"
-                                        autoComplete="email"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        name="password"
-                                        label="Password"
-                                        type="password"
-                                        id="password"
-                                        autoComplete="new-password"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <TextField
-                                        required
-                                        fullWidth
-                                        name="phoneNumber"
-                                        label="Phone Number"
-                                        type="number"
-                                        id="phoneNumber"
-                                        autoComplete="phoneNumber"
-                                        onChange={handleChange}
-                                    />
-                                </Grid>
-                            </Grid>
-                            <Button
-                                type="submit"
-                                fullWidth
-                                variant="contained"
-                                sx={{ mt: 3, mb: 2 }}
-                                onClick={handleSubmit}
-                            >
-                                Sign Up
-                            </Button>
+                        <Box sx={{mt: 3}}>
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <input {...register("username", {required: true, maxLength: 30})} />
+                                <input {...register("email", {required: true, maxLength: 30})} />
+                                <input type="password" {...register("password", {required: true})} />
+                                <input type="number" {...register("phoneNumber", {
+                                    required: true,
+                                    min: 1000000000,
+                                    max: 9999999999
+                                })} />
+                                <input type="submit"/>
+                            </form>
                             <Grid container justifyContent="flex-end">
                                 <Grid item>
                                     <Link to="/login" className="btn-link__form">
-                                       Already a user? Login
+                                        Already a user? Login
                                     </Link>
                                 </Grid>
                             </Grid>
-                            {registerSuccessful && <div style={{
-                                fontFamily: "sans-serif",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                marginTop: "20px",
-                                color: "green"
-                            }}> Logged in successfully </div>}
+                            <MessageBar
+                                responseType={registerSuccessful.response}
+                                messageType={registerSuccessful.message}
+                            />
                         </Box>
                     </Box>
                 </Container>

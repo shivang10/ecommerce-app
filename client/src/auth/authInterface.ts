@@ -1,7 +1,7 @@
 export interface UserSignupDetailsInterface {
     username: string,
     email: string,
-    phoneNumber: number | undefined,
+    phoneNumber: number,
     password: string
 }
 
