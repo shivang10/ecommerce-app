@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/user");
 
-router.route("/").get((req, res) => {
+router.route("/").post((req, res) => {
     const { userId } = req.body;
 
     User.findById(
