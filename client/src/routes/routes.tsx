@@ -5,9 +5,10 @@ import {Route, Switch} from "react-router-dom";
 import Login from "../auth/login";
 import Signup from "../auth/signup";
 import Homepage from "../homepage/homepage";
+import Address from "../user/address/Address";
 import Orders from "../user/orders/Orders";
 import Profile from "../user/Profile";
-import {loginLink, myOrders, myProfile, signupLink} from "./routesLink";
+import {loginLink, myAddress, myOrders, myProfile, signupLink} from "./routesLink";
 
 const Routes: React.FC = () => {
     return (
@@ -17,6 +18,7 @@ const Routes: React.FC = () => {
             <Route path={signupLink} component={Signup}/>
             <Route path={myProfile} component={Profile}/>
             <Route path={myOrders} component={Orders}/>
+            <Route path={myAddress} component={Address} />
         </Switch>
     );
 };

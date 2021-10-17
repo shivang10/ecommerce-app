@@ -31,6 +31,9 @@ app.use("/new-order", userOrderRouter);
 const userPreviousOrders = require("./routes/previousOrders");
 app.use("/my-orders", userPreviousOrders);
 
+const userSavedAddresses = require("./routes/savedAddresses");
+app.use("/my-addresses", userSavedAddresses);
+
 const addNewAddress = require("./routes/addUserAddress");
 app.use("/add-address", addNewAddress);
 
