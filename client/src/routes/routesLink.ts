@@ -3,3 +3,4 @@ export const signupLink = "/register";
 export const myProfile = "/my-profile";
 export const myOrders = "/my-orders";
 export const myAddress = "/my-addresses";
+export const addAddress = "/add-address";

@@ -1,7 +1,9 @@
 import React,{useEffect, useState} from "react";
 
 import axios from "axios";
+import {Link} from "react-router-dom";
 
+import {addAddress} from "../../routes/routesLink";
 import {axiosPostMethod} from "../../utils/axiosMethods";
 import {myAddressesLink} from "../userLinks";
 import {getUserToken} from "../userToken";
@@ -44,6 +46,7 @@ const Address: React.FC = () => {
     return (
         <div>
             My Saved Address
+            <Link to={addAddress}>Add new address</Link>
             {allSavedAddress}
         </div>
     );
