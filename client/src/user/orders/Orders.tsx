@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
 
 import axios from "axios";
-import jwt_decode from "jwt-decode";
 
 import {axiosPostMethod} from "../../utils/axiosMethods";
-import {UserTokenInterface} from "../userInterface";
 import {myOrdersLink} from "../userLinks";
+import {getUserToken} from "../userToken";
 import SingleOrder from "./SingleOrder";
 
 const Orders: React.FC = () => {
@@ -13,13 +12,7 @@ const Orders: React.FC = () => {
     const [myOrders, updateMyOrders] = useState([]);
 
     useEffect(() => {
-        const userToken = localStorage.getItem("userToken");
-        let userDetails: UserTokenInterface;
-        let userId;
-        if (userToken) {
-            userDetails = jwt_decode(userToken);
-            userId = userDetails["id"];
-        }
+        const userId = getUserToken();
         axios(
             {
                 "url": myOrdersLink,

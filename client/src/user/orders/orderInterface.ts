@@ -7,3 +7,11 @@ export interface SingleOrderInterface {
     address: string,
     itemsOrdered: []
 }
+
+export interface SingleOrderItemInterface {
+    name: string,
+    price: number,
+    quantity: number,
+    totalPrice: number,
+    itemDiscount: number
+}

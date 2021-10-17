@@ -1,6 +1,6 @@
 import React from "react";
 
-import {SingleOrderInterface} from "./singleOrderInterface";
+import {SingleOrderInterface} from "./orderInterface";
 import SingleOrderItems from "./SingleOrderItems";
 
 const SingleOrder: React.FC<SingleOrderInterface> = ({
