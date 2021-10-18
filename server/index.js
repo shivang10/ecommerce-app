@@ -37,6 +37,9 @@ app.use("/my-addresses", userSavedAddresses);
 const addNewAddress = require("./routes/addUserAddress");
 app.use("/add-address", addNewAddress);
 
+const addNewPaymentMethod = require("./routes/addPaymentMethod");
+app.use("/add-payment-method", addNewPaymentMethod);
+
 const sellerRegistration = require("./routes/sellerRegistration");
 app.use("/seller-registration", sellerRegistration);
 
