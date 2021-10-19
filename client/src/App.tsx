@@ -2,12 +2,12 @@ import React from "react";
 
 import {BrowserRouter as Router} from "react-router-dom";
 
-import Routes from "./routes/routes";
+import Homepage from "./homepage/homepage";
 
 const App: React.FC = () => {
     return (
         <Router>
-            <Routes/>
+            <Homepage/>
         </Router>
     );
 };

@@ -13,9 +13,10 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {Link, Redirect, useHistory} from "react-router-dom";
 
 import MessageBar from "../components/MessageBar/MessageBar";
+import {axiosPostMethod} from "../utils/axiosMethods";
 import {UserSignupDetailsInterface} from "./authInterface";
 import {signupServerLink} from "./authLink";
-import {axiosPostMethod, isUserLogged} from "./authServices";
+import {isUserLogged} from "./authServices";
 
 
 const theme = createTheme();

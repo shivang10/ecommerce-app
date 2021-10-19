@@ -9,7 +9,7 @@ const Signup = lazy(() => import("../auth/signup"));
 const Homepage = lazy(() => import("../homepage/homepage"));
 const AddAddress = lazy(() => import("../user/address/AddAddress"));
 const Address = lazy(() => import("../user/address/Address"));
-const Orders = lazy(() => import("../user/paymentMethods/PaymentMethods"));
+const Orders = lazy(() => import("../user/orders/Orders"));
 const PaymentMethods = lazy(() => import("../user/paymentMethods/PaymentMethods"));
 const Profile = lazy(() => import("../user/Profile"));
 
