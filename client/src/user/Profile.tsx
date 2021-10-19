@@ -14,7 +14,7 @@ const Profile: React.FC = () => {
                 <Link to="/my-addresses">My addresses</Link>
             </div>
             <div>
-                <Link to="/payment-modes">Payment Methods</Link>
+                <Link to="/my-payment-methods">Payment Methods</Link>
             </div>
             <div>
                 <Link to="/auth-services">Login and security</Link>

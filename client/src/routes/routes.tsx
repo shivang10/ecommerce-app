@@ -8,8 +8,9 @@ import Homepage from "../homepage/homepage";
 import AddAddress from "../user/address/AddAddress";
 import Address from "../user/address/Address";
 import Orders from "../user/orders/Orders";
+import PaymentMethods from "../user/paymentMethods/PaymentMethods";
 import Profile from "../user/Profile";
-import {addAddress, loginLink, myAddress, myOrders, myProfile, signupLink} from "./routesLink";
+import {addAddress, loginLink, myAddress, myOrders, myProfile, signupLink, myPaymentMethods} from "./routesLink";
 
 const Routes: React.FC = () => {
     return (
@@ -21,6 +22,7 @@ const Routes: React.FC = () => {
             <Route path={myOrders} component={Orders}/>
             <Route path={myAddress} component={Address} />
             <Route path={addAddress} component={AddAddress} />
+            <Route path={myPaymentMethods} component={PaymentMethods} />
         </Switch>
     );
 };
