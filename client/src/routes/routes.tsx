@@ -1,29 +1,32 @@
-import React from "react";
+import React, {lazy, Suspense} from "react";
 
 import {Route, Switch} from "react-router-dom";
 
-import Login from "../auth/login";
-import Signup from "../auth/signup";
-import Homepage from "../homepage/homepage";
-import AddAddress from "../user/address/AddAddress";
-import Address from "../user/address/Address";
-import Orders from "../user/orders/Orders";
-import PaymentMethods from "../user/paymentMethods/PaymentMethods";
-import Profile from "../user/Profile";
-import {addAddress, loginLink, myAddress, myOrders, myProfile, signupLink, myPaymentMethods} from "./routesLink";
+import {addAddress, loginLink, myAddress, myOrders, myPaymentMethods, myProfile, signupLink} from "./routesLink";
+
+const Login = lazy(() => import("../auth/login"));
+const Signup = lazy(() => import("../auth/signup"));
+const Homepage = lazy(() => import("../homepage/homepage"));
+const AddAddress = lazy(() => import("../user/address/AddAddress"));
+const Address = lazy(() => import("../user/address/Address"));
+const Orders = lazy(() => import("../user/paymentMethods/PaymentMethods"));
+const PaymentMethods = lazy(() => import("../user/paymentMethods/PaymentMethods"));
+const Profile = lazy(() => import("../user/Profile"));
 
 const Routes: React.FC = () => {
     return (
-        <Switch>
-            <Route path="/" component={Homepage} exact={true}/>
-            <Route path={loginLink} component={Login}/>
-            <Route path={signupLink} component={Signup}/>
-            <Route path={myProfile} component={Profile}/>
-            <Route path={myOrders} component={Orders}/>
-            <Route path={myAddress} component={Address} />
-            <Route path={addAddress} component={AddAddress} />
-            <Route path={myPaymentMethods} component={PaymentMethods} />
-        </Switch>
+        <Suspense fallback={<div>Loading</div>}>
+            <Switch>
+                <Route path="/" component={Homepage} exact={true}/>
+                <Route path={loginLink} component={Login}/>
+                <Route path={signupLink} component={Signup}/>
+                <Route path={myProfile} component={Profile}/>
+                <Route path={myOrders} component={Orders}/>
+                <Route path={myAddress} component={Address}/>
+                <Route path={addAddress} component={AddAddress}/>
+                <Route path={myPaymentMethods} component={PaymentMethods}/>
+            </Switch>
+        </Suspense>
     );
 };
 
