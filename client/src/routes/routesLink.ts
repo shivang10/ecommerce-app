@@ -5,3 +5,4 @@ export const myOrders = "/my-orders";
 export const myAddress = "/my-addresses";
 export const addAddress = "/add-address";
 export const myPaymentMethods = "/my-payment-methods";
+export const addPaymentMethod = "/add-payment-method";

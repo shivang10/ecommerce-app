@@ -2,7 +2,16 @@ import React, {lazy, Suspense} from "react";
 
 import {Route, Switch} from "react-router-dom";
 
-import {addAddress, loginLink, myAddress, myOrders, myPaymentMethods, myProfile, signupLink} from "./routesLink";
+import {
+    addAddress,
+    addPaymentMethod,
+    loginLink,
+    myAddress,
+    myOrders,
+    myPaymentMethods,
+    myProfile,
+    signupLink
+} from "./routesLink";
 
 const Login = lazy(() => import("../auth/login"));
 const Signup = lazy(() => import("../auth/signup"));
@@ -12,6 +21,7 @@ const Address = lazy(() => import("../user/address/Address"));
 const Orders = lazy(() => import("../user/orders/Orders"));
 const PaymentMethods = lazy(() => import("../user/paymentMethods/PaymentMethods"));
 const Profile = lazy(() => import("../user/Profile"));
+const AddPaymentMethod = lazy(() => import("../user/paymentMethods/AddPaymentMethod"));
 
 const Routes: React.FC = () => {
     return (
@@ -25,6 +35,7 @@ const Routes: React.FC = () => {
                 <Route path={myAddress} component={Address}/>
                 <Route path={addAddress} component={AddAddress}/>
                 <Route path={myPaymentMethods} component={PaymentMethods}/>
+                <Route path={addPaymentMethod} component={AddPaymentMethod}/>
             </Switch>
         </Suspense>
     );

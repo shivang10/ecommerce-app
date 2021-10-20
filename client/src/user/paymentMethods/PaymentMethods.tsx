@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 import {axiosPostMethod} from "../../utils/axiosMethods";
 import {myPaymentMethodsLink} from "../userLinks";
@@ -42,6 +43,7 @@ const PaymentMethods: React.FC = () => {
     return (
         <div>
             Payment Methods
+            <Link to="add-payment-method">Add Payment Method</Link>
             {allPaymentMethods}
         </div>
     );
