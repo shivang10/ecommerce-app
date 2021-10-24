@@ -5,7 +5,6 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
 import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
@@ -14,18 +13,18 @@ import {Link, Redirect, useHistory} from "react-router-dom";
 
 import MessageBar from "../components/MessageBar/MessageBar";
 import {axiosPostMethod} from "../utils/axiosMethods";
-import {UserSignupDetailsInterface} from "./authInterface";
-import {signupServerLink} from "./authLink";
+import {SellerSignupDetailsInterface, UserSignupDetailsInterface} from "./authInterface";
+import {sellerSignupLink, signupServerLink} from "./authLink";
 import {isUserLogged} from "./authServices";
 
 
 const theme = createTheme();
 
-const Signup: React.FC = () => {
+const SellerSignup: React.FC = () => {
 
     const history = useHistory();
 
-    const {register, handleSubmit} = useForm<UserSignupDetailsInterface>();
+    const {register, handleSubmit} = useForm<SellerSignupDetailsInterface>();
 
     const [registerSuccessful, updateRegisterSuccessful] = useState({
         message: "",
@@ -39,7 +38,7 @@ const Signup: React.FC = () => {
         });
 
         axios({
-            "url": signupServerLink,
+            "url": sellerSignupLink,
             "method": axiosPostMethod,
             "data": data
         })
@@ -93,34 +92,22 @@ const Signup: React.FC = () => {
                             <LockOutlinedIcon/>
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign up
+                            Seller Sign up
                         </Typography>
                         <Box sx={{mt: 3}}>
                             <form onSubmit={handleSubmit(onSubmit)}>
-                                <input {...register("username", {required: true, maxLength: 30})} />
-                                <input {...register("email", {required: true, maxLength: 30})} />
+                                <input {...register("sellerUsername", {required: true, maxLength: 30})} />
                                 <input type="password" {...register("password", {required: true})} />
+                                <input {...register("email", {required: true, maxLength: 30})} />
                                 <input type="number" {...register("phoneNumber", {
                                     required: true,
                                     min: 1000000000,
                                     max: 9999999999
                                 })} />
+                                <input {...register("homeAddress", {required: true, maxLength:200})} />
+                                <input {...register("storeAddress", {required: true, maxLength:200})} />
                                 <input type="submit"/>
                             </form>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                    <Link to="/login" className="btn-link__form">
-                                        Already a user? Login
-                                    </Link>
-                                </Grid>
-                            </Grid>
-                            <Grid container justifyContent="flex-end">
-                                <Grid item>
-                                    <Link to="/seller-register" className="btn-link__form">
-                                        Register as a Seller
-                                    </Link>
-                                </Grid>
-                            </Grid>
                             <MessageBar
                                 responseType={registerSuccessful.response}
                                 messageType={registerSuccessful.message}
@@ -133,4 +120,4 @@ const Signup: React.FC = () => {
     );
 };
 
-export default Signup;
+export default SellerSignup;

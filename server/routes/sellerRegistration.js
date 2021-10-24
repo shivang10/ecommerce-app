@@ -29,7 +29,7 @@ router.route("/").post(async (req, res) => {
             status: 400
         });
     }
-    if (!phoneNumber || typeof phoneNumber !== "number") {
+    if (!phoneNumber || typeof phoneNumber !== "string") {
         return res.status(400).send({
             message: "Phone number is not valid.",
             status: 400

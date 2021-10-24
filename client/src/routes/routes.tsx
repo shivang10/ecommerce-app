@@ -2,6 +2,7 @@ import React, {lazy, Suspense} from "react";
 
 import {Route, Switch} from "react-router-dom";
 
+import SellerSignup from "../auth/sellerSignup";
 import {
     addAddress,
     addPaymentMethod,
@@ -9,7 +10,7 @@ import {
     myAddress,
     myOrders,
     myPaymentMethods,
-    myProfile,
+    myProfile, sellerSignup,
     signupLink
 } from "./routesLink";
 
@@ -36,6 +37,7 @@ const Routes: React.FC = () => {
                 <Route path={addAddress} component={AddAddress}/>
                 <Route path={myPaymentMethods} component={PaymentMethods}/>
                 <Route path={addPaymentMethod} component={AddPaymentMethod}/>
+                <Route path={sellerSignup} component={SellerSignup}/>
             </Switch>
         </Suspense>
     );

@@ -9,3 +9,13 @@ export interface UserLoginDetailsInterface {
     email: string,
     password: string
 }
+
+export interface SellerSignupDetailsInterface {
+    sellerUsername: string,
+    password: string
+    email: string,
+    phoneNumber: number,
+    homeAddress: string,
+    storeAddress: string
+}
+
