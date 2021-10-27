@@ -49,6 +49,9 @@ app.use("/seller-registration", sellerRegistration);
 const sellerLogin = require("./routes/sellerLogin");
 app.use("/seller-login", sellerLogin);
 
+const addProduct = require("./routes/addProducts");
+app.use("/add-product", addProduct);
+
 app.listen(5000, () => {
     console.log("server is running on 5000.");
 });
