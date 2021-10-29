@@ -52,6 +52,9 @@ app.use("/seller-login", sellerLogin);
 const addProduct = require("./routes/addProducts");
 app.use("/add-product", addProduct);
 
+const updateProduct = require("./routes/updateProduct");
+app.use("/update-product", updateProduct);
+
 app.listen(5000, () => {
     console.log("server is running on 5000.");
 });
