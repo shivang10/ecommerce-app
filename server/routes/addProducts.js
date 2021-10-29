@@ -4,7 +4,7 @@ const Products = require("../models/products");
 const getAddProductDetails = require("../utils/getAddProductDetails");
 
 router.route("/").post((req, res) => {
-    const { sellerId } = req.body;
+    const sellerId = req.body.sellerDetails.id;
 
     if (!sellerId) {
         return res.status(400).status({
@@ -23,9 +23,25 @@ router.route("/").post((req, res) => {
             try {
                 const addProductDetails = getAddProductDetails(req.body);
                 const response = await Products.create(addProductDetails);
+
+                const addedProductDetails = response.id;
+
+                const sellerResponse = await Seller.findOneAndUpdate(
+                    { _id: sellerId },
+                    {
+                        $push: {
+                            stocksAvailable: {
+                                $each: [addedProductDetails],
+                                $position: 0
+                            }
+                        }
+                    },
+                    { new: true, upsert: true }
+                );
+
                 return res.status(200).send({
                     message: "Product is successfully added",
-                    response: response,
+                    response: [response, sellerResponse],
                     status: 200
                 });
             } catch (error) {

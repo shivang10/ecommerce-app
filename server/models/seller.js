@@ -6,7 +6,8 @@ const SellerSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     phoneNumber: { type: String, required: true },
     homeAddress: { type: String, required: true },
-    storeAddress: { type: String, required: true }
+    storeAddress: { type: String, required: true },
+    stocksAvailable: { type: Array, required: false }
 }, {
     collection: "seller"
 });
