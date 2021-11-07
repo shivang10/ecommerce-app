@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const User = require("../models/user");
-const individualOrderData = require("../dummyData/individualOrder.data");
 
 const getTotalOrder = require("../utils/getTotalOrders");
+const updateProductsBought = require("../utils/updateProductsBought");
 
 router.route("/").post(async (req, res) => {
     const { userId, username, email, phoneNumber } = req.body;
@@ -23,7 +23,7 @@ router.route("/").post(async (req, res) => {
             });
         } else {
             try {
-                const itemsOrdered = getTotalOrder(individualOrderData);
+                const itemsOrdered = getTotalOrder(req.body);
                 const response = await User.findOneAndUpdate(
                     { _id: userId },
                     {
@@ -36,6 +36,8 @@ router.route("/").post(async (req, res) => {
                     },
                     { new: true, upsert: true }
                 );
+                const updateResult = await updateProductsBought(req.body);
+                console.log(updateResult);
                 return res.status(200).send({
                     message: "Your order is successfully placed.",
                     status: 200,
