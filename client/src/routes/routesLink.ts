@@ -7,3 +7,4 @@ export const addAddress = "/add-address";
 export const myPaymentMethods = "/my-payment-methods";
 export const addPaymentMethod = "/add-payment-method";
 export const sellerSignup = "/seller-register";
+export const sellerLogin = "/seller-login";

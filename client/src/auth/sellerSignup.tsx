@@ -9,12 +9,12 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {Link, Redirect, useHistory} from "react-router-dom";
+import {Redirect, useHistory} from "react-router-dom";
 
 import MessageBar from "../components/MessageBar/MessageBar";
 import {axiosPostMethod} from "../utils/axiosMethods";
 import {SellerSignupDetailsInterface, UserSignupDetailsInterface} from "./authInterface";
-import {sellerSignupLink, signupServerLink} from "./authLink";
+import {sellerSignupLink} from "./authLink";
 import {isUserLogged} from "./authServices";
 
 
@@ -52,7 +52,7 @@ const SellerSignup: React.FC = () => {
                         message: "",
                         response: ""
                     });
-                    history.push("/login");
+                    history.push("/seller-login");
                 }, 3000);
                 console.log(res);
             })
@@ -96,16 +96,26 @@ const SellerSignup: React.FC = () => {
                         </Typography>
                         <Box sx={{mt: 3}}>
                             <form onSubmit={handleSubmit(onSubmit)}>
-                                <input {...register("sellerUsername", {required: true, maxLength: 30})} />
-                                <input type="password" {...register("password", {required: true})} />
-                                <input {...register("email", {required: true, maxLength: 30})} />
-                                <input type="number" {...register("phoneNumber", {
+                                <input placeholder="Name" {...register("sellerUsername", {
+                                    required: true,
+                                    maxLength: 30
+                                })} />
+                                <input placeholder="Email" {...register("email", {required: true, maxLength: 30})} />
+                                <input placeholder="Password"
+                                    type="password" {...register("password", {required: true})} />
+                                <input placeholder="Phone Number" type="number" {...register("phoneNumber", {
                                     required: true,
                                     min: 1000000000,
                                     max: 9999999999
                                 })} />
-                                <input {...register("homeAddress", {required: true, maxLength:200})} />
-                                <input {...register("storeAddress", {required: true, maxLength:200})} />
+                                <input placeholder="Home Address" {...register("homeAddress", {
+                                    required: true,
+                                    maxLength: 200
+                                })} />
+                                <input placeholder="Store Address" {...register("storeAddress", {
+                                    required: true,
+                                    maxLength: 200
+                                })} />
                                 <input type="submit"/>
                             </form>
                             <MessageBar

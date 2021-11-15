@@ -19,3 +19,7 @@ export interface SellerSignupDetailsInterface {
     storeAddress: string
 }
 
+export interface SellerLoginDetailsInterface {
+    email: string,
+    password: string
+}
