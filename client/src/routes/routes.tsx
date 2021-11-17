@@ -5,12 +5,15 @@ import {Route, Switch} from "react-router-dom";
 import {
     addAddress,
     addPaymentMethod,
+    addProduct,
     loginLink,
     myAddress,
     myOrders,
     myPaymentMethods,
-    myProfile, sellerSignup,
-    signupLink, sellerLogin
+    myProfile,
+    sellerLogin,
+    sellerSignup,
+    signupLink
 } from "./routesLink";
 
 const Login = lazy(() => import("../auth/login"));
@@ -24,6 +27,7 @@ const Profile = lazy(() => import("../user/Profile"));
 const AddPaymentMethod = lazy(() => import("../user/paymentMethods/AddPaymentMethod"));
 const SellerSignup = lazy(() => import("../auth/sellerSignup"));
 const SellerLogin = lazy(() => import("../auth/sellerLogin"));
+const AddProduct = lazy(() => import("../products/add/addProduct"));
 
 const Routes: React.FC = () => {
     return (
@@ -40,6 +44,7 @@ const Routes: React.FC = () => {
                 <Route path={addPaymentMethod} component={AddPaymentMethod}/>
                 <Route path={sellerSignup} component={SellerSignup}/>
                 <Route path={sellerLogin} component={SellerLogin}/>
+                <Route path={addProduct} component={AddProduct}/>
             </Switch>
         </Suspense>
     );

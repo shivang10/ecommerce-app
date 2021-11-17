@@ -1,0 +1,1 @@
+export const addProductLink = "http://localhost:5000/add-product";
