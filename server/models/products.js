@@ -6,7 +6,7 @@ const Products = new mongoose.Schema({
     price: { type: Number, required: true },
     tags: { type: Array, required: true },
     sellerDetails: { type: Schema.Types.Mixed, required: true },
-    reviews: { type: Number, required: true },
+    reviews: { type: Number },
     description: { type: String, required: true },
     stockQuantity: { type: Number, required: true }
 });
