@@ -3,9 +3,10 @@ import React, {lazy, Suspense} from "react";
 import {Route, Switch} from "react-router-dom";
 
 import SellerSignup from "../auth/sellerSignup";
+import DisplayProducts from "../user/products/DisplayProducts";
 import {
     addAddress,
-    addPaymentMethod,
+    addPaymentMethod, displayProducts,
     loginLink,
     myAddress,
     myOrders,
@@ -16,7 +17,7 @@ import {
 
 const Login = lazy(() => import("../auth/login"));
 const Signup = lazy(() => import("../auth/signup"));
-const Homepage = lazy(() => import("../homepage/homepage"));
+// const Homepage = lazy(() => import("../homepage/homepage"));
 const AddAddress = lazy(() => import("../user/address/AddAddress"));
 const Address = lazy(() => import("../user/address/Address"));
 const Orders = lazy(() => import("../user/orders/Orders"));
@@ -28,7 +29,7 @@ const Routes: React.FC = () => {
     return (
         <Suspense fallback={<div>Loading</div>}>
             <Switch>
-                <Route path="/" component={Homepage} exact={true}/>
+                {/*<Route path="/" component={Homepage} exact={true}/>*/}
                 <Route path={loginLink} component={Login}/>
                 <Route path={signupLink} component={Signup}/>
                 <Route path={myProfile} component={Profile}/>
@@ -38,6 +39,7 @@ const Routes: React.FC = () => {
                 <Route path={myPaymentMethods} component={PaymentMethods}/>
                 <Route path={addPaymentMethod} component={AddPaymentMethod}/>
                 <Route path={sellerSignup} component={SellerSignup}/>
+                <Route path={displayProducts} component={DisplayProducts}/>
             </Switch>
         </Suspense>
     );
