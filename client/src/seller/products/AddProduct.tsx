@@ -6,10 +6,10 @@ import {Redirect} from "react-router-dom";
 
 import {isUserLogged} from "../../auth/authServices";
 import MessageBar from "../../components/MessageBar/MessageBar";
-import {getSellerToken} from "../../seller/sellerToken";
 import {axiosPostMethod} from "../../utils/axiosMethods";
-import {addProductLink} from "../productsLink";
-import {AddProductInterface} from "./addProductInterface";
+import {getSellerToken} from "../sellerToken";
+import {AddProductInterface} from "./productsInterface";
+import {addProductLink} from "./productsLink";
 
 
 const AddProduct: React.FC = () => {

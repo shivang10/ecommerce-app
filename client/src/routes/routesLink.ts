@@ -9,3 +9,4 @@ export const addPaymentMethod = "/add-payment-method";
 export const sellerSignup = "/seller-register";
 export const sellerLogin = "/seller-login";
 export const addProduct = "/add-product";
+export const myProducts = "/my-products";

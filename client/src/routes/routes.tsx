@@ -10,10 +10,11 @@ import {
     myAddress,
     myOrders,
     myPaymentMethods,
+    myProducts,
     myProfile,
     sellerLogin,
     sellerSignup,
-    signupLink
+    signupLink,
 } from "./routesLink";
 
 const Login = lazy(() => import("../auth/login"));
@@ -27,7 +28,8 @@ const Profile = lazy(() => import("../user/Profile"));
 const AddPaymentMethod = lazy(() => import("../user/paymentMethods/AddPaymentMethod"));
 const SellerSignup = lazy(() => import("../auth/sellerSignup"));
 const SellerLogin = lazy(() => import("../auth/sellerLogin"));
-const AddProduct = lazy(() => import("../products/add/addProduct"));
+const AddProduct = lazy(() => import("../seller/products/AddProduct"));
+const Products = lazy(() => import("../seller/products/Products"));
 
 const Routes: React.FC = () => {
     return (
@@ -45,6 +47,7 @@ const Routes: React.FC = () => {
                 <Route path={sellerSignup} component={SellerSignup}/>
                 <Route path={sellerLogin} component={SellerLogin}/>
                 <Route path={addProduct} component={AddProduct}/>
+                <Route path={myProducts} component={Products}/>
             </Switch>
         </Suspense>
     );
